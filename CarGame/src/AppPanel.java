@@ -16,13 +16,13 @@ public class AppPanel extends JPanel {
     int xAxis = 400;
     int yAxis = 0;
     int xMyCar = xAxis + 210;
-    int yMyCar = 570;
+    int yMyCar = 570+120;
     int xCar1 = xAxis + (500 - (70 + 65));
     int yCar1 = 0;
     int xTruck = xAxis + 52;
     int yTruck = yAxis - 70;
     int collision = 0;
-    int score = 0; // Score tracker
+    int score = 0;
 
     AppPanel() {
         setSize(500, 700);
@@ -50,30 +50,31 @@ public class AppPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(backgroundImage.getImage(), xAxis, yAxis, 500, 700, null);
+        g.drawImage(backgroundImage.getImage(), xAxis+150, yAxis, 500, 900, null);
 
         if (!isColision(xMyCar, yMyCar, xCar1, yCar1, xTruck, yTruck)) {
-            g.drawImage(MycarImage, xMyCar, yMyCar, 90, 120, null);
-            g.drawImage(Car1Image, xCar1, yCar1, 90, 120, null);
-            g.drawImage(TruckImage, xTruck, yTruck, 90, 120, null);
+            g.drawImage(MycarImage, xMyCar+150, yMyCar, 90, 120, null);
+            g.drawImage(Car1Image, xCar1+150, yCar1, 90, 120, null);
+            g.drawImage(TruckImage, xTruck+150, yTruck, 90, 120, null);
 
-            // Draw Score
+
             g.setFont(new Font("Arial", Font.BOLD, 20));
             g.setColor(Color.BLACK);
             g.drawString("Score: " + score, 10, 30);
         } else {
-            g.drawImage(gameOverImage, xAxis, yAxis + 200, 500, 300, null);
+            g.drawImage(gameOverImage, xAxis+150, yAxis + 200, 500, 300, null);
+
         }
     }
 
     void loopPaint() {
         timer = new Timer(150, (abcd) -> {
-            if (yCar1 < 625 + 35) {
+            if (yCar1 != 860) {
                 yCar1 += 50;
             }
-            if (yCar1 >= 650 + 35) {
+            if (yCar1 >= 860) {
                 yCar1 = 0;
-                score++; // Increment score when the car passes
+                score++;
             }
             repaint();
         });
@@ -82,12 +83,12 @@ public class AppPanel extends JPanel {
 
     void loopPaint1() {
         timer = new Timer(200, (abcd) -> {
-            if (yTruck < 625 + 35) {
+            if (yTruck != 860) {
                 yTruck += 50;
             }
-            if (yTruck >= 650 + 30) {
+            if (yTruck >= 860) {
                 yTruck = 0;
-                score++; // Increment score when the truck passes
+                score++;
             }
             repaint();
         });
@@ -115,11 +116,11 @@ public class AppPanel extends JPanel {
                         yMyCar -= 10;
                     }
                 } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    if (yMyCar <= 615) {
+                    if (yMyCar != 840-120) {
                         yMyCar += 10;
                     }
                 } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    // Restart game on pressing space
+
                     if (collision >= 1) {
                         resetGame();
                     }
@@ -147,7 +148,7 @@ public class AppPanel extends JPanel {
         collision = 0;
         score = 0;
         xMyCar = xAxis + 210;
-        yMyCar = 570;
+        yMyCar = 570+120;
         yCar1 = 0;
         yTruck = -70;
         repaint();
