@@ -7,9 +7,9 @@ public class AppFrame extends JFrame {
 
     public void initApp(){
         setTitle("car game");
-        setSize(500,700);
+        pack();
+        setSize(500,840);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         AppPanel ap = new AppPanel();
         add(ap);
